@@ -2,154 +2,82 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="main.js"></script>
 
-        html {
-            font-family: "Lucida Sans", sans-serif;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        .header {
-            background: #00C4CC;
-            background: linear-gradient(90deg, #00C4CC 0%, #7D2AE8 100%);
-            color: #ffffff;
-            padding: 15px;
-        }
-
-        .footer {
-            background: #00C4CC;
-            background: linear-gradient(-90deg, #00C4CC 0%, #7D2AE8 100%);
-            color: #ffffff;
-            text-align: center;
-            font-size: 12px;
-            padding: 15px;
-        }
-
-        .main-container {
-            display: flex;
-            min-height: 500px;
-
-        }
-
-        .authors-list {
-            width: 30%;
-
-        }
-
-        .authors-list li {
-            cursor: pointer;
-            margin: 10px;
-
-        }
-
-        .authors-list li:hover {
-            transform: scale(1.1);
-        }
-
-        .author-info-container {
-            width: 70%;
-        }
-        /*
-         animation-name: moving-image;
-            animation-duration: 4s;
-            animation-delay: 2s;
-            */
-
-        @keyframes moving-image {
-            0% {
-                left: 0;
-                top: 0;
-            }
-            25% {
-                left: 200px;
-                top: 0;
-            }
-            50% {
-                left: 200px;
-                top: 200px;
-            }
-            75% {
-                left: 0;
-                top: 200px;
-            }
-            100% {
-                left: 0;
-                top: 0;
-            }
-        }
-
-        div.polaroid {
-            width: 250px;
-            box-shadow: 5px 5px 20px 0 grey;
-            text-align: center;
-        }
-
-        div.container {
-            padding: 10px;
-        }
-
-        .image-container {
-
-        }
-
-        @media only screen and (max-width: 768px) {
-            h1 {
-                font-size: 90%;
-            }
-
-            .main-container {
-                display: block;
-            }
-
-            .main-container ul {
-                display: inline-flex;
-            }
-
-            .authors-list {
-                width: 100%;
-                text-align: center;
-            }
-
-            .author-info-container {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    </style>
 </head>
 <body>
 
 <div class="header" style="text-align: center">
     <h1>DISTRIBUTED SYSTEMS AND ALGORITHMS</h1>
+    <marquee direction=left><img src="http://www.krazy-kreations.com/images/babies/0059.gif"></marquee>
 </div>
 
 <div class="main-container">
 
     <div class="authors-list">
         <ul>
-            <li>Habib Hinn</li>
-            <li>Fadi Khayo</li>
-            <li>Ayman Daraghmah</li>
-            <li>Hussien Dahir</li>
+            <li onclick="openLink(event, 'habib')">Habib Hinn</li>
+            <li onclick="openLink(event, 'fadi')">Fadi Khayo</li>
+            <li onclick="openLink(event, 'ayman')">Ayman Daraghmah</li>
+            <li onclick="openLink(event, 'hussien')">Hussien Dahir</li>
         </ul>
     </div>
 
     <div class="author-info-container">
-        <h1>Main Page</h1>
-        <div class="image-container">
+        <div style="height: 30px;text-align: center;font-size: 30px;"><strong>Main Page</strong></div>
+        <div class="view-container">
 
-            <div class="polaroid">
-                <img src="rock600x400.jpg" alt="Habib Hinn" style="width:100%">
-                <div class="container">
-                    <p>Hardanger, Norway</p>
+
+            <div id="habib" class="flip-container author">
+
+                <div class="flipper">
+                    <div class="front">
+                        <img src="./assets/habibHinn.jpg" alt="Habib Hinn" class="image-view">
+                    </div>
+                    <div class="back">
+                        Description
+                    </div>
                 </div>
             </div>
+
+            <div id="hussien" class="flip-container author">
+
+                <div class="flipper">
+                    <div class="front">
+                        <img src="./assets/hussien.jpg" alt="Hussien Dahir" class="image-view">
+                    </div>
+                    <div class="back">
+                        Description
+                    </div>
+                </div>
+            </div>
+
+            <div id="ayman" class="flip-container author">
+
+                <div class="flipper">
+                    <div class="front">
+                        <img src="./assets/ayman.jpg" alt="Ayman Daraghmah" class="image-view">
+                    </div>
+                    <div class="back">
+                        Description
+                    </div>
+                </div>
+            </div>
+
+            <div id="fadi" class="flip-container author">
+
+                <div class="flipper">
+                    <div class="front">
+                        <img src="./assets/fadi.jpg" alt="Fadi Khayo" class="image-view">
+                    </div>
+                    <div class="back">
+                        Description
+                    </div>
+                </div>
+            </div>
+
+
 
         </div>
     </div>
