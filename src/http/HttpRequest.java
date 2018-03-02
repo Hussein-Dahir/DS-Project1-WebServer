@@ -74,6 +74,9 @@ public class HttpRequest {
 	public String getUrl() {
 		return url;
 	}
+	public void setUrl(String url){
+		this.url = url;
+	}
 	
 	@Override
 	public String toString() {
@@ -83,7 +86,7 @@ public class HttpRequest {
 		}
 		result += "\r\n";
 		for (String line : body) {
-			result += line + "\n"; 
+			result += line + "\n";
 		}
 		return result;
 	}
