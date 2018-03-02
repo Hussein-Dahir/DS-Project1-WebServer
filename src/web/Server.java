@@ -9,15 +9,15 @@ import java.util.concurrent.TimeUnit;
 public class Server implements Runnable {
 
 	private ServerSocket server;
-	private final String webRoot;
+	private String webRoot;
 	private ExecutorService threadsPool;
 
 	private final int port;
 	private final int threadsLimit;
 
 	public static void main(String[] args) {
-		int port = 80;
-		String webRoot = "data/index.html";
+		int port = 8080;
+		String webRoot = "wwwroot/";
 		int maxThreads = 100;
 		new Thread(new Server(port, webRoot, maxThreads)).start();
 	}
