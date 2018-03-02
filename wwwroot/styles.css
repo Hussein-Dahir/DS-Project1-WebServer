@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Lucida Sans", sans-serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.header {
+    background: #00C4CC;
+    background: linear-gradient(90deg, #00C4CC 0%, #7D2AE8 100%);
+    color: #ffffff;
+    padding: 15px;
+}
+
+.footer {
+    background: #00C4CC;
+    background: linear-gradient(-90deg, #00C4CC 0%, #7D2AE8 100%);
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    padding: 15px;
+}
+
+.main-container {
+    display: flex;
+    min-height: 500px;
+
+}
+
+.authors-list {
+    width: 30%;
+    border-right: 1px solid grey;
+    margin-right: 3px;
+    background-color: #f1f1f1;
+}
+
+.authors-list li {
+    cursor: pointer;
+    margin: 10px;
+    width: 25%;
+    height: 18px;
+    overflow: hidden;
+
+}
+
+.authors-list li:hover {
+    transform: scale(1.1);
+}
+
+.author-info-container {
+    width: 70%;
+    position: relative;
+}
+
+/* #container {
+     width: 100%;
+     height: 200px;
+     margin: 20px;
+     position: relative;
+     background: yellow;
+ }
+
+ #animate {
+     width: 50px;
+     height: 50px;
+     left: 175px;
+     position: absolute;
+     background-color: red;
+ }*/
+
+/*
+ animation-name: moving-image;
+    animation-duration: 4s;
+    animation-delay: 2s;
+    */
+
+@keyframes moving-image {
+    0% {
+        left: 0;
+        top: 0;
+    }
+    25% {
+        left: 200px;
+        top: 0;
+    }
+    50% {
+        left: 200px;
+        top: 200px;
+    }
+    75% {
+        left: 0;
+        top: 200px;
+    }
+    100% {
+        left: 0;
+        top: 0;
+    }
+}
+
+div.polaroid {
+    width: 250px;
+    box-shadow: 5px 5px 20px 0 grey;
+    text-align: center;
+    height: 100%;
+}
+
+div.container {
+    padding: 10px;
+}
+
+.image-container {
+    height: 200px;
+    background-color: #7D2AE8;
+    transition: opacity 1s linear;
+}
+
+.author {
+    /*visibility: hidden;*/
+    display: none;
+    opacity: 0;
+}
+
+.view-container {
+    display: flex;
+    /* height: max-content; */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 30px);
+    min-height: 400px;
+}
+
+@media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 90%;
+    }
+
+    .main-container {
+        display: block;
+    }
+
+    .main-container ul {
+        display: inline-flex;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .authors-list {
+        width: 100%;
+        text-align: center;
+        border: 0;
+    }
+
+    .authors-list il {
+        cursor: pointer;
+        margin: 1px;
+        background: red;
+        width: 25%;
+    }
+
+    .authors-list il:hover {
+        background-color: black;
+        color: white;
+    }
+
+    .author-info-container {
+        width: 100%;
+        text-align: center;
+        height: 100%;
+        min-height: 400px;
+        display: block;
+        position: relative;
+    }
+}
