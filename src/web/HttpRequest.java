@@ -17,7 +17,9 @@ public class HttpRequest {
 	private NavigableMap<String, String> headers = new TreeMap<String, String>();
 	private List<String> body = new ArrayList<String>();
 
-	private HttpRequest() {}
+	private HttpRequest() {
+		
+	}
 
 	public static HttpRequest parseAsHttp(InputStream in) {
 		try {

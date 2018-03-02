@@ -30,6 +30,10 @@ public class Connection implements Runnable {
 
 			HttpRequest request = HttpRequest.parseAsHttp(in);
 			
+			System.out.println("Request BEGIN: ------------------------------------------------------------");
+			System.out.println(request);
+			System.out.println("END: ------------------------------------------------------------");
+			
 			if (request != null) {
 				System.out.println("Request for " + request.getUrl() + " is being processed " +
 					"by socket at " + client.getInetAddress() +":"+ client.getPort());
