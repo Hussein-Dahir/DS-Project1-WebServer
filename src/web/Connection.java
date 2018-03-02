@@ -28,12 +28,11 @@ public class Connection implements Runnable {
 	public void run() {
 		try {
 
-
 			in = client.getInputStream();
 			out = client.getOutputStream();
 
 			HttpRequest request = HttpRequest.parseRequest(in);
-
+			
 			System.out.println("------------------------ REQUEST BEGIN ----------------------------------");
 			System.out.println(request);
 			System.out.println("---------------------------- REQUEST END --------------------------------");

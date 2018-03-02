@@ -27,6 +27,10 @@ public class HttpRequest {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			String line = reader.readLine();
 			
+			System.out.println("=====================================");
+			System.out.println(request);
+			System.out.println("=====================================");
+			
 			if (line == null) {
 				throw new IOException("Server accepts only HTTP requests.");
 			}

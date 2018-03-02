@@ -4,9 +4,10 @@ import web.Server;
 
 public class Main {
 	public static void main(String[] args) {
-		int port = 8080;
-		String webRoot = "data/";
+		int port = 8090;
+		String webRoot = "data";
 		int maxThreads = 100;
+		
 		new Thread(new Server(port, webRoot, maxThreads)).start();
 	}
 }
