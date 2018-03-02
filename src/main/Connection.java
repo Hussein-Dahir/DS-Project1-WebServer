@@ -30,11 +30,11 @@ public class Connection implements Runnable {
 			in = client.getInputStream();
 			out = client.getOutputStream();
 
-			HttpRequest request = HttpRequest.parseAsHttp(in);
+			HttpRequest request = HttpRequest.parseRequest(in);
 			
-			System.out.println("Request BEGIN: ------------------------------------------------------------");
+			System.out.println("------------------------ REQUEST BEGIN ----------------------------------");
 			System.out.println(request);
-			System.out.println("END: ------------------------------------------------------------");
+			System.out.println("---------------------------- REQUEST END --------------------------------");
 			
 			if (request != null) {
 				System.out.println("Request for " + request.getUrl() + " is being processed " +

@@ -38,8 +38,8 @@ public class Server implements Runnable {
 			System.exit(1);
 		}
 		
-		System.out.println("Running server on the port " + port + 
-				" with web root folder \"" + webRoot + "\" and " + threadsLimit + " threads limit.");
+//		System.out.println("Running server on the port " + port + 
+//				" with web root folder \"" + webRoot + "\" and " + threadsLimit + " threads limit.");
 
 		while (!Thread.interrupted()) {
 			try {
@@ -68,5 +68,4 @@ public class Server implements Runnable {
 	public String getWebRoot() {
 		return webRoot;
 	}
-
 }

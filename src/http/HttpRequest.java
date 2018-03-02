@@ -21,21 +21,26 @@ public class HttpRequest {
 		
 	}
 
-	public static HttpRequest parseAsHttp(InputStream in) {
+	public static HttpRequest parseRequest(InputStream in) {
 		try {
 			HttpRequest request = new HttpRequest();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			String line = reader.readLine();
+			
 			if (line == null) {
 				throw new IOException("Server accepts only HTTP requests.");
 			}
+			
 			String[] requestLine = line.split(" ", 3);
+			
 			if (requestLine.length != 3) {
 				throw new IOException("Cannot parse request line from \"" + line + "\"");
 			}
+			
 			if (!requestLine[2].startsWith("HTTP/")) {
 				throw new IOException("Server accepts only HTTP requests.");
 			}
+			
 			request.method = requestLine[0];
 			request.url = requestLine[1];
 			request.protocol = requestLine[2];
