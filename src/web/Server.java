@@ -1,4 +1,4 @@
-package main;
+package web;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,13 +14,6 @@ public class Server implements Runnable {
 
 	private final int port;
 	private final int threadsLimit;
-
-	public static void main(String[] args) {
-		int port = 80;
-		String webRoot = "data/index.html";
-		int maxThreads = 100;
-		new Thread(new Server(port, webRoot, maxThreads)).start();
-	}
 
 	public Server(int port, String webRoot, int maxThreads) {
 		this.port = port;
