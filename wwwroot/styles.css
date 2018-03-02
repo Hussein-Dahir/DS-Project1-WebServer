@@ -42,7 +42,6 @@ ul {
 .authors-list li {
     cursor: pointer;
     margin: 10px;
-    width: 25%;
     height: 18px;
     overflow: hidden;
 
@@ -79,7 +78,7 @@ ul {
     animation-delay: 2s;
     */
 
-@keyframes moving-image {
+/*@keyframes moving-image {
     0% {
         left: 0;
         top: 0;
@@ -100,27 +99,9 @@ ul {
         left: 0;
         top: 0;
     }
-}
-
-div.polaroid {
-    width: 250px;
-    box-shadow: 5px 5px 20px 0 grey;
-    text-align: center;
-    height: 100%;
-}
-
-div.container {
-    padding: 10px;
-}
-
-.image-container {
-    height: 200px;
-    background-color: #7D2AE8;
-    transition: opacity 1s linear;
-}
+}*/
 
 .author {
-    /*visibility: hidden;*/
     display: none;
     opacity: 0;
 }
@@ -131,9 +112,47 @@ div.container {
     width: 100%;
     justify-content: center;
     align-items: center;
-    height: calc(100% - 30px);
+    /*height: calc(100% - 30px);*/
     min-height: 400px;
+    perspective: 1000px;
 }
+.flip-container {
+    perspective: 1000px;
+    box-shadow: 5px 5px 20px 0 grey;
+}
+
+.flip-container:hover .flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back, .image-view {
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.flipper {
+    transition: 1s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.front, .back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.front {
+    z-index: 2;
+}
+
+.back {
+    transform: rotateY(180deg);
+    background: #f8f8f8;
+}
+
 
 @media only screen and (max-width: 768px) {
     h1 {
@@ -157,14 +176,13 @@ div.container {
         border: 0;
     }
 
-    .authors-list il {
+    .authors-list li {
         cursor: pointer;
         margin: 1px;
-        background: red;
         width: 25%;
     }
 
-    .authors-list il:hover {
+    .authors-list li:hover {
         background-color: black;
         color: white;
     }
