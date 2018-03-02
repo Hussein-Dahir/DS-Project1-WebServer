@@ -27,23 +27,28 @@ public class Connection implements Runnable {
 	@Override
 	public void run() {
 		try {
+
+
 			in = client.getInputStream();
 			out = client.getOutputStream();
 
 			HttpRequest request = HttpRequest.parseRequest(in);
-			
+
 			System.out.println("------------------------ REQUEST BEGIN ----------------------------------");
 			System.out.println(request);
 			System.out.println("---------------------------- REQUEST END --------------------------------");
-			
+
 			if (request != null) {
 				System.out.println("Request for " + request.getUrl() + " is being processed " +
 					"by socket at " + client.getInetAddress() +":"+ client.getPort());
-				
+
 				HttpResponse response;
-				
+                if(request.getUrl().equals("/")){
+                    request.setUrl("/index.html");
+                }
+
 				String method;
-				if ((method = request.getMethod()).equals(HttpMethod.GET) 
+				if ((method = request.getMethod()).equals(HttpMethod.GET)
 						|| method.equals(HttpMethod.HEAD)) {
 					File f = new File(server.getWebRoot() + request.getUrl());
 					response = new HttpResponse(StatusCode.OK).withFile(f);
@@ -53,13 +58,13 @@ public class Connection implements Runnable {
 				} else {
 					response = new HttpResponse(StatusCode.NOT_IMPLEMENTED);
 				}
-				
+
 				respond(response);
-				
+
 			} else {
 				System.err.println("Server accepts only HTTP protocol.");
 			}
-			
+
 			in.close();
 			out.close();
 		} catch (IOException e) {
