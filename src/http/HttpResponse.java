@@ -31,20 +31,23 @@ public class HttpResponse {
 				body = new byte[length];
 				reader.read(body);
 				reader.close();
-				
+
 				setContentLength(length);
-				if (f.getName().endsWith(".htm") || f.getName().endsWith(".html")) {
+				
+				if (f.getName().endsWith(".htm") || f.getName().endsWith(".html")) 
 					setContentType(ContentType.HTML);
-				} else {
+				else 
 					setContentType(ContentType.TEXT);
-				}
+
 			} catch (IOException e) {
 				System.err.println("Error while reading " + f);
 			}
+			
 			return this;
+
 		} else {
 			return new HttpResponse(StatusCode.NOT_FOUND)
-				.withHtmlBody("<html><body>File " + f + " not found.</body></html>");
+					.withHtmlBody("<html><body>File " + f + " not found.</body></html>");
 		}
 	}
 
