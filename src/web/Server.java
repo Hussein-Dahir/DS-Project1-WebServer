@@ -15,10 +15,9 @@ public class Server implements Runnable {
 	private final int port;
 	private final int threadsLimit;
 
-
 	public static void main(String[] args) {
 		int port = 80;
-		String webRoot = "wwwroot/String.html";
+		String webRoot = "data/index.html";
 		int maxThreads = 100;
 		new Thread(new Server(port, webRoot, maxThreads)).start();
 	}
@@ -49,7 +48,8 @@ public class Server implements Runnable {
 				System.err.println("Cannot accept client.");
 			}
 		}
-		close();
+		
+		this.close();
 	}
 
 	public void close() {
