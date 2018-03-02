@@ -1,4 +1,4 @@
-package web;
+package main;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +7,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import web.HttpRequest.HttpMethod;
-import web.HttpResponse.StatusCode;
+import http.HttpRequest;
+import http.HttpResponse;
+import http.constants.HttpMethod;
+import http.constants.StatusCode;
 
 public class Connection implements Runnable {
 
@@ -77,5 +79,4 @@ public class Connection implements Runnable {
 		writer.write(toSend);
 		writer.flush();
 	}
-
 }

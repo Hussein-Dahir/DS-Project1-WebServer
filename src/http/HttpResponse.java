@@ -1,4 +1,4 @@
-package web;
+package http;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.NavigableMap;
 import java.util.TreeMap;
+
+import http.constants.ContentType;
+import http.constants.StatusCode;
 
 public class HttpResponse {
 
@@ -80,16 +83,4 @@ public class HttpResponse {
 		}
 		return result;
 	}
-
-	public static class StatusCode {
-		public static final String OK = "200 OK";
-		public static final String NOT_FOUND = "404 Not Found";
-		public static final String NOT_IMPLEMENTED = "501 Not Implemented";
-	}
-
-	public static class ContentType {
-		public static final String TEXT = "text/plain";
-		public static final String HTML = "text/html";
-	}
-
 }

@@ -1,4 +1,4 @@
-package web;
+package http;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -81,10 +81,5 @@ public class HttpRequest {
 			result += line + "\n"; 
 		}
 		return result;
-	}
-	
-	public static class HttpMethod {
-		public static final String GET = "GET";
-		public static final String HEAD = "HEAD";
 	}
 }
