@@ -45,7 +45,7 @@ public class Server implements Runnable {
 			keystore.load(new FileInputStream(SSL_CERTIFICATE_FILE_PATH), passphrase);
 			KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
 			keyManagerFactory.init(keystore, passphrase);
-			SSLContext context = SSLContext.getInstance("TLS");
+			SSLContext context = SSLContext.getInstance("SSL");
 			KeyManager[] keyManagers = keyManagerFactory.getKeyManagers();
 			context.init(keyManagers, null, null);
 			SSLServerSocketFactory sslServerSocketFactory = context.getServerSocketFactory();
@@ -55,9 +55,11 @@ public class Server implements Runnable {
 
 		} catch (IOException e) {
 			System.err.println("Cannot listen on port " + port);
+			e.printStackTrace();
 			System.exit(1);
 		} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | UnrecoverableKeyException | KeyManagementException e) {
 			System.err.println("Error with SSL Certificate");
+			e.printStackTrace();
 			System.exit(1);
 		}
 
