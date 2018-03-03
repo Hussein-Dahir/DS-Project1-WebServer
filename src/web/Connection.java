@@ -32,19 +32,19 @@ public class Connection implements Runnable {
 			out = client.getOutputStream();
 
 			HttpRequest request = HttpRequest.parseRequest(in);
-			
+
 			System.out.println("------------------------ REQUEST BEGIN ----------------------------------");
 			System.out.println(request);
 			System.out.println("---------------------------- REQUEST END --------------------------------");
 
 			if (request != null) {
 				System.out.println("Request for " + request.getUrl() + " is being processed " +
-					"by socket at " + client.getInetAddress() +":"+ client.getPort());
+						"by socket at " + client.getInetAddress() +":"+ client.getPort());
 
 				HttpResponse response;
-                if(request.getUrl().equals("/")){
-                    request.setUrl("/index.html");
-                }
+				if(request.getUrl().equals("/")){
+					request.setUrl("/index.html");
+				}
 
 				String method;
 				if ((method = request.getMethod()).equals(HttpMethod.GET)
