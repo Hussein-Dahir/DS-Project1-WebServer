@@ -3,6 +3,7 @@ package http;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.NavigableMap;
 import java.util.TreeMap;
@@ -29,9 +30,10 @@ public class HttpResponse {
 				FileInputStream reader = new FileInputStream(f);
 				int length = reader.available();
 				body = new byte[length];
+				
 				reader.read(body);
 				reader.close();
-
+				
 				setContentLength(length);
 				if (f.getName().endsWith(".htm") || f.getName().endsWith(".html")) {
 					setContentType(ContentType.HTML);
@@ -39,6 +41,9 @@ public class HttpResponse {
 					setContentType(ContentType.CSS);
 				} else if (f.getName().endsWith(".js")) {
 					setContentType(ContentType.JS);
+				} else if(f.getName().endsWith(".jpg")) {
+					setContentType(ContentType.JPG);
+					headers.put("Content-Transfer-Encoding", "UTF-8");
 				} else {
 					setContentType(ContentType.TEXT);
 				}
@@ -51,7 +56,6 @@ public class HttpResponse {
 			
 			try {
 				FileInputStream reader = new FileInputStream(fileNotFoundErrorPage);
-				
 				int length = reader.available();
 				body = new byte[length];
 				reader.read(body);
