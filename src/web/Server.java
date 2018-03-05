@@ -20,74 +20,75 @@ import javax.net.ssl.SSLServerSocketFactory;
 
 public class Server implements Runnable {
 
-	private final String SSL_PASSWORD = "mypassword";
-	private final String SSL_CERTIFICATE_FILE_PATH = "sslCertficate/ssl-certificate.jks";
-	
-	private ServerSocket server;
-	private final String webRoot;
-	private ExecutorService threadsPool;
+    private final String SSL_PASSWORD = "mypassword";
+    private final String SSL_CERTIFICATE_FILE_PATH = "sslCertficate/ssl-certificate.jks";
 
-	private final int port;
-	private final int threadsLimit;
+    private ServerSocket server;
+    private final String webRoot;
+    private ExecutorService threadsPool;
 
-	public Server(int port, String webRoot, int maxThreads) {
-		this.port = port;
-		this.threadsLimit = maxThreads;
-		this.webRoot = webRoot;
-	}
+    private final int port;
+    private final int threadsLimit;
 
-	@Override
-	public void run() {
-		try {
+    public Server(int port, String webRoot, int maxThreads) {
+        this.port = port;
+        this.threadsLimit = maxThreads;
+        this.webRoot = webRoot;
+    }
 
-			char[] passphrase = SSL_PASSWORD.toCharArray();
-			KeyStore keystore = KeyStore.getInstance("JKS");
-			keystore.load(new FileInputStream(SSL_CERTIFICATE_FILE_PATH), passphrase);
-			KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
-			keyManagerFactory.init(keystore, passphrase);
-			SSLContext context = SSLContext.getInstance("SSL");
-			KeyManager[] keyManagers = keyManagerFactory.getKeyManagers();
-			context.init(keyManagers, null, null);
-			SSLServerSocketFactory sslServerSocketFactory = context.getServerSocketFactory();
-			
-			server = sslServerSocketFactory.createServerSocket(port);
-			threadsPool = Executors.newFixedThreadPool(threadsLimit);
+    @Override
+    public void run() {
+        try {
 
-		} catch (IOException e) {
-			System.err.println("Cannot listen on port " + port);
-			e.printStackTrace();
-			System.exit(1);
-		} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | UnrecoverableKeyException | KeyManagementException e) {
-			System.err.println("Error with SSL Certificate");
-			e.printStackTrace();
-			System.exit(1);
-		}
+            char[] passphrase = SSL_PASSWORD.toCharArray();
+            KeyStore keystore = KeyStore.getInstance("JKS");
+            keystore.load(new FileInputStream(SSL_CERTIFICATE_FILE_PATH), passphrase);
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
+            keyManagerFactory.init(keystore, passphrase);
+            SSLContext context = SSLContext.getInstance("SSL");
+            KeyManager[] keyManagers = keyManagerFactory.getKeyManagers();
+            context.init(keyManagers, null, null);
+            SSLServerSocketFactory sslServerSocketFactory = context.getServerSocketFactory();
 
-		while (!Thread.interrupted()) {
-			try {
-				threadsPool.execute(new Thread(new Connection(server.accept(), this)));
-			} catch (IOException e) {
-				System.err.println("Cannot accept client.");
-			}
-		}
+            server = sslServerSocketFactory.createServerSocket(port);
+            threadsPool = Executors.newFixedThreadPool(threadsLimit);
 
-		this.close();
-	}
+        } catch (IOException e) {
+            System.err.println("Cannot listen on port " + port);
+            e.printStackTrace();
+            System.exit(1);
+        } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | UnrecoverableKeyException | KeyManagementException e) {
+            System.err.println("Error with SSL Certificate");
+            e.printStackTrace();
+            System.exit(1);
+        }
 
-	public void close() {
-		try {
-			server.close();
-		} catch (IOException e) {
-			System.err.println("Error while closing server socket.");
-		}
-		threadsPool.shutdown();
-		try {
-			if (!threadsPool.awaitTermination(10, TimeUnit.SECONDS)) 
-				threadsPool.shutdownNow();
-		} catch (InterruptedException e) {}
-	}
+        while (!Thread.interrupted()) {
+            try {
+                threadsPool.execute(new Thread(new Connection(server.accept(), this)));
+            } catch (IOException e) {
+                System.err.println("Cannot accept client.");
+            }
+        }
 
-	public String getWebRoot() {
-		return webRoot;
-	}
+        this.close();
+    }
+
+    private void close() {
+        try {
+            server.close();
+        } catch (IOException e) {
+            System.err.println("Error while closing server socket.");
+        }
+        threadsPool.shutdown();
+        try {
+            if (!threadsPool.awaitTermination(10, TimeUnit.SECONDS))
+                threadsPool.shutdownNow();
+        } catch (InterruptedException ignored) {
+        }
+    }
+
+    public String getWebRoot() {
+        return webRoot;
+    }
 }
