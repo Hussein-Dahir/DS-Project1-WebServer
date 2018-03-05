@@ -17,7 +17,7 @@ public class HttpResponse {
 	private String status;
 	private NavigableMap<String, String> headers = new TreeMap<String, String>();
 	private byte[] body = null;
-
+	
 	public HttpResponse(String status) {
 		this.status = status;
 		setDate(new Date());
@@ -26,6 +26,7 @@ public class HttpResponse {
 	public HttpResponse withFile(File f) {
 		if (f.isFile()) {
 			try {
+
 				FileInputStream reader = new FileInputStream(f);
 				int length = reader.available();
 				body = new byte[length];
@@ -39,7 +40,16 @@ public class HttpResponse {
 					setContentType(ContentType.CSS);
 				} else if (f.getName().endsWith(".js")) {
 					setContentType(ContentType.JS);
-				} else {
+				} else if (f.getName().endsWith(".jpg")) {
+					setContentType(ContentType.JPG);
+				} else if (f.getName().endsWith(".jpeg")) {
+					setContentType(ContentType.JPEG);
+				} else if (f.getName().endsWith(".png")) {
+					setContentType(ContentType.PNG);
+				} else if (f.getName().endsWith(".gif")) {
+					setContentType(ContentType.GIF);
+				} 
+				else {
 					setContentType(ContentType.TEXT);
 				}
 			} catch (IOException e) {
@@ -48,24 +58,24 @@ public class HttpResponse {
 		} else {
 
 			File fileNotFoundErrorPage = new File("data/404Error.html");
-			
+
 			try {
 				FileInputStream reader = new FileInputStream(fileNotFoundErrorPage);
-				
+
 				int length = reader.available();
 				body = new byte[length];
 				reader.read(body);
 				reader.close();
-				
+
 				setContentType(ContentType.HTML);
 				setContentLength(length);
 				this.status = StatusCode.NOT_FOUND;
-				
+
 			} catch (IOException e) {
 				System.err.println("Error while reading " + fileNotFoundErrorPage);
 			}
 		}
-		
+
 		return this;
 	}
 
@@ -92,6 +102,10 @@ public class HttpResponse {
 		body = null;
 	}
 
+	public byte[] getBody() {
+		return body;
+	}
+
 	@Override
 	public String toString() {
 		String result = protocol + " " + status + "\n";
@@ -99,9 +113,9 @@ public class HttpResponse {
 			result += key + ": " + headers.get(key) + "\n";
 		}
 		result += "\r\n";
-		if (body != null) {
-			result += new String(body);
-		}
+//		if (body != null) {
+//			result += new String(body);
+//		}
 		return result;
 	}
 }

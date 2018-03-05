@@ -68,6 +68,7 @@ public class Connection implements Runnable {
 			out.close();
 		} catch (IOException e) {
 			System.err.println("Error in client's IO.");
+			e.printStackTrace();
 		} finally {
 			try {
 				client.close();
@@ -77,10 +78,14 @@ public class Connection implements Runnable {
 		}
 	}
 
-	public void respond(HttpResponse response) {
+	public void respond(HttpResponse response) throws IOException {
 		String toSend = response.toString();
 		PrintWriter writer = new PrintWriter(out);
 		writer.write(toSend);
 		writer.flush();
+
+		byte[] body = response.getBody();
+		if (body != null) 
+			out.write(response.getBody());
 	}
 }

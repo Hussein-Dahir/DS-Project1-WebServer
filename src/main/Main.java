@@ -4,7 +4,7 @@ import web.Server;
 
 public class Main {
 	public static void main(String[] args) {
-		int port = 8090;
+		int port = 8899;
 		String webRoot = "data";
 		int maxThreads = 100;
 		
