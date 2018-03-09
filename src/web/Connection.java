@@ -33,42 +33,45 @@ public class Connection implements Runnable {
 
 			HttpRequest request = HttpRequest.parseRequest(in);
 
+			System.out.println();
+			System.out.println(
+					"Request for " + request.getUrl() + 
+					" is being processed by socket at " + 
+					client.getInetAddress() +":"+ client.getPort()
+					);
+
+			System.out.println();
 			System.out.println("------------------------ REQUEST BEGIN ----------------------------------");
 			System.out.println(request);
 			System.out.println("---------------------------- REQUEST END --------------------------------");
-
-			if (request != null) {
-				System.out.println("Request for " + request.getUrl() + " is being processed " +
-						"by socket at " + client.getInetAddress() +":"+ client.getPort());
-
-				HttpResponse response;
-				if(request.getUrl().equals("/")){
-					request.setUrl("/index.html");
-				}
-
-				String method;
-				if ((method = request.getMethod()).equals(HttpMethod.GET)
-						|| method.equals(HttpMethod.HEAD)) {
-					File f = new File(server.getWebRoot() + request.getUrl());
-					response = new HttpResponse(StatusCode.OK).withFile(f);
-					if (method.equals(HttpMethod.HEAD)) {
-						response.removeBody();
-					}
-				} else {
-					response = new HttpResponse(StatusCode.NOT_IMPLEMENTED);
-				}
-
-				respond(response);
-
-			} else {
-				System.err.println("Server accepts only HTTP protocol.");
+			
+			// if request url is "/", then forward it to "index.html"
+			if(request.getUrl().equals("/")){
+				request.setUrl("/index.html");
 			}
+
+			HttpResponse response;
+			String method = request.getMethod();
+			
+			if (method.equals(HttpMethod.GET) || method.equals(HttpMethod.HEAD)) {
+				
+				File f = new File(server.getWebRoot() + request.getUrl());
+				response = new HttpResponse(StatusCode.OK).withFile(f);
+				
+				if (method.equals(HttpMethod.HEAD)) {
+					response.removeBody();
+				}
+				
+			} else {
+				response = new HttpResponse(StatusCode.NOT_IMPLEMENTED);
+			}
+
+			respond(response);
 
 			in.close();
 			out.close();
 		} catch (IOException e) {
-			System.err.println("Error in client's IO.");
-			e.printStackTrace();
+			// System.err.println("Error in client's IO.");
 		} finally {
 			try {
 				client.close();
