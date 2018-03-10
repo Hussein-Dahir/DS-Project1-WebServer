@@ -13,7 +13,8 @@ public class HttpRequest {
 	private String url;
 	private String protocol;
 	private NavigableMap<String, String> headers = new TreeMap<String, String>();
-
+	private byte[] body = null;
+	
 	private HttpRequest() {
 
 	}
